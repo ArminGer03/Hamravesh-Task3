@@ -1,10 +1,16 @@
 from flask import Flask, render_template, request, session, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
+app.secret_key = 'felan-alaki-yechizi-mizaram'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+db = SQLAlchemy(app)
 
-app.secret_key = 'felan-yechizi-mizaram'
-
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(50), nullable=False)
 
 @app.route('/')
 def home():
@@ -22,9 +28,15 @@ def login():
 def signup():
     if request.method == 'POST':
         # Create a new user account and set session variables
-        session['username'] = request.form['username']
+        username = request.form['username']
+        password = request.form['password']
+        new_user = User(username=username, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        session['username'] = username
         return redirect(url_for('dashboard'))
     return render_template('signup.html')
+
 
 @app.route('/dashboard')
 def dashboard():
