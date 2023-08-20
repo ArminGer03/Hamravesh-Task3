@@ -7,7 +7,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
@@ -23,7 +23,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
 
-        if user:
+        if user != None:
             if user.password == password:
                 session['username'] = username
                 return redirect(url_for('dashboard'))
@@ -60,4 +60,6 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    with app.app_context():
+        db.create_all()
+    app.run()
