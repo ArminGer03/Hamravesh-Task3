@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, s
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 import random
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'felan-alaki-yechizi-mizaram'
@@ -23,6 +24,7 @@ class History(db.Model):
     __tablename__ = 'history'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     min_bound = db.Column(db.Integer, nullable=False)
     max_bound = db.Column(db.Integer, nullable=False)
     random_number = db.Column(db.Integer, nullable=False)
@@ -171,6 +173,9 @@ def dashboard():
         random_number = None
         if min == max:
             error = 'min and max must be diffrent!'
+            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
+        elif min > max:
+            error = 'min must be smaller than max!'
             return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
         else:
             random_number = random.randint(min, max)
