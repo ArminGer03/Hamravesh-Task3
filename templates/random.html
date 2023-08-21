@@ -1,0 +1,84 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="styles.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>Armin's Website</title>
+
+
+<script>
+    function validateForm() {
+        var myField1 = document.getElementById("num1").value;
+        if (myField1 === "") {
+            alert("Please enter a value for Number1 field.");
+            return false;
+        }
+        var myField2 = document.getElementById("num2").value;
+        if (myField2 === "") {
+            alert("Please enter a value for Number2 field.");
+            return false;
+        }
+
+        else if(myField2 === myField1){
+            alert("Please enter two diffrent numbers.");
+            return false;
+        }
+    }
+</script>
+
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="container">
+        
+        <img src="logo.png" alt="logo" class="logo">
+        <nav>
+            <li><a href="main.html">Main</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="random.html">Random Number</a></li>
+        </nav>
+    </div>
+
+</header>
+
+<div class="randomField">
+    <h1>Random Number Generator</h1>
+    <form action="/" method="POST" onsubmit="return validateForm()">
+        <label for="num1">Number 1:</label>
+        <input type="number" id="num1" name="num1"><br><br>
+        <label for="num2">Number 2:</label>
+        <input type="number" id="num2" name="num2"><br><br>
+        <input type="submit" value="Generate Random Number">
+    </form>
+    <h2>Random Number: {random_number}</h2>
+</div>
+
+
+</body>
+
+
+<footer>
+    <div class="containerF">
+
+            <navF>
+                <li><a href="https://t.me/rmingr" class="fa fa-telegram" style="font-size:30px"></a></li>
+                <li><a href="https://linkedin.com/in/armin-geramirad-646837233" class="fa fa-linkedin" style="font-size:30px"> </a></li>
+                <li><a href="https://github.com/ArminGer03" class="fa fa-github-square" style="font-size:30px"></a></li>
+            </navF>
+            <section id="textFoot">
+                <p>&copy;2022 Armin Geramirad | All Rights Reserved</p>
+            </section>
+            
+
+    </div>
+</footer>
+
+
+</html>
