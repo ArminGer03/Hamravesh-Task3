@@ -1,11 +1,65 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="styles.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>Armin's Website</title>
 </head>
+
 <body>
-    <h1>Welcome, {{ username }}!</h1>
-    <p>This is your dashboard.</p>
-    <a href="/logout">Logout</a>
+
+
+<header>
+
+    <div class="container">
+        
+        <img src="logo.png" alt="logo" class="logo">
+        <nav>
+            <li><a href="home">Home</a></li>
+            <li><a href="achievements">Achievements</a></li>
+            <li><a href="skills">Skills</a></li>
+            <li><a href="dashboard">Dashboard</a></li>
+        </nav>
+    </div>
+
+</header>
+
+<div class="fields">
+    <h1>Welcome back, {{ username }}!</h1><br><br>
+    <h1>Random Number Generator</h1>
+    {%  if  error %}
+    <errorForm> Error : {{error}}</errorForm>
+ 	{% endif %} 
+    <form method="POST" action="/login">
+        <label for="min">Min:</label>
+        <input type="number" id="min" name="min" required><br><br>
+        <label for="max">Max:</label>
+        <input type="number" id="max" name="max" required><br><br>
+        <input type="submit" value="Generete"><br><br>
+    </form>
+    <h2>Random Number: {random_number}</h2>
+</div>
+
+
 </body>
+
+
+<footer>
+    <div class="containerF">
+
+            <navF>
+                <li><a href="https://t.me/rmingr" class="fa fa-telegram" style="font-size:30px"></a></li>
+                <li><a href="https://linkedin.com/in/armin-geramirad-646837233" class="fa fa-linkedin" style="font-size:30px"> </a></li>
+                <li><a href="https://github.com/ArminGer03" class="fa fa-github-square" style="font-size:30px"></a></li>
+            </navF>
+            <section id="textFoot">
+                <p>&copy;2022 Armin Geramirad | All Rights Reserved</p>
+            </section>
+            
+
+    </div>
+</footer>
+
+
 </html>
