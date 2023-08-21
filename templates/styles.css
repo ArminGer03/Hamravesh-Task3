@@ -118,6 +118,12 @@ p3{
   color: #ede5e5;
   text-align: right;
 }
+errorForm{
+  font-family: 'Baskerville', sans;
+  font-size: 20px;
+  color: #d70f0f;
+  text-align: right;
+}
 footer {
   background: #55d6aa;
   bottom: 0px;

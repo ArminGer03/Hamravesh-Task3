@@ -28,7 +28,7 @@
 <div class="fields">
     <h1>Login</h1>
     {%  if  error %}
- 	<p> Error : {{error}}</p>
+    <errorForm> Error : {{error}}</errorForm>
  	{% endif %} 
     <form method="POST" action="/login">
         <label for="username">Username:</label>
