@@ -165,7 +165,9 @@ def achievements():
 def dashboard():
     if 'username' not in session:
         return redirect(url_for('login'))
-        
+
+    history = History.query.filter_by(username=session['username']).all()
+
     if request.method == 'POST':
         min = int(request.form['min'])
         max = int(request.form['max'])
@@ -173,18 +175,19 @@ def dashboard():
         random_number = None
         if min == max:
             error = 'min and max must be diffrent!'
-            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
+            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number, history=history)
         elif min > max:
             error = 'min must be smaller than max!'
-            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
+            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number, history=history)
         else:
             random_number = random.randint(min, max)
             new_history = History(username=session['username'], min_bound=min, max_bound=max, random_number=random_number)
             db.session.add(new_history)
             db.session.commit()
-            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
+            new_history = History.query.filter_by(username=session['username']).all()
+            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number, history=new_history)
 
-    history = History.query.filter_by(username=session['username']).all()
+    
     return render_template('dashboard.html', user_in_session=session['username'], username=session['username'], history=history)
 
 @app.route('/logout')

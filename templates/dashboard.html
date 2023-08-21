@@ -54,12 +54,14 @@
 <div class="table-container">
     <table>
         <tr>
+            <th>Date & Time</th>
             <th>Min Bound</th>
             <th>Max Bound</th>
             <th>Random Number</th>
         </tr>
         {% for row in history %}
         <tr>
+            <td>{{ row.timestamp }}</td>
             <td>{{ row.min_bound }}</td>
             <td>{{ row.max_bound }}</td>
             <td>{{ row.random_number }}</td>
