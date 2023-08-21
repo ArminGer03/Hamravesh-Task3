@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -35,7 +35,19 @@ def check_password_format(password):
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('main.html')
+
+@app.route('/styles.css')
+def styles():
+    return render_template('styles.css')
+
+@app.route('/logo.png')
+def load_logo():
+    return send_file('images/logo.png', mimetype='image/png')
+
+@app.route('/prof.jpeg')
+def load_prof():
+    return send_file('images/prof.jpeg', mimetype='image/jpeg')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
