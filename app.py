@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
+import random
 
 app = Flask(__name__)
 app.secret_key = 'felan-alaki-yechizi-mizaram'
@@ -136,11 +137,24 @@ def skills():
 def achievements():
     return render_template('achievements.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if 'username' in session:
-        return render_template('dashboard.html', username=session['username'])
-    return redirect(url_for('login'))
+    if 'username' not in session:
+        return redirect(url_for('login'))
+        
+    if request.method == 'POST':
+        min = int(request.form['min'])
+        max = int(request.form['max'])
+        error = None
+        random_number = None
+        if min == max:
+            error = 'min and max must be diffrent!'
+            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
+        else:
+            random_number = random.randint(min, max)
+            return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
+
+    return render_template('dashboard.html', user_in_session=session['username'], username=session['username'])
 
 @app.route('/logout')
 def logout():
