@@ -38,7 +38,10 @@
         <input type="number" id="max" name="max" required><br><br>
         <input type="submit" value="Generete"><br><br>
     </form>
-    <h2>Random Number: {random_number}</h2>
+    {%  if  random_number %}
+    <h2>Random Number: {{random_number}}</h2>
+ 	{% endif %} 
+    
 </div>
 
 
