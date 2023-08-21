@@ -179,7 +179,7 @@ def dashboard():
             db.session.commit()
             return render_template('dashboard.html',user_in_session=session['username'] , error=error, random_number=random_number)
 
-    history = History.query.all()
+    history = History.query.filter_by(username=session['username']).all()
     return render_template('dashboard.html', user_in_session=session['username'], username=session['username'], history=history)
 
 @app.route('/logout')
