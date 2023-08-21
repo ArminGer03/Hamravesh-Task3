@@ -20,6 +20,9 @@
             <li><a href="achievements">Achievements</a></li>
             <li><a href="skills">Skills</a></li>
             <li><a href="dashboard">Dashboard</a></li>
+            {%  if  user_in_session %}
+            <li><a href="logout">Logout</a></li>
+ 	        {% endif %}
         </nav>
     </div>
 

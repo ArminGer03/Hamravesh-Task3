@@ -61,7 +61,11 @@ def check_password(password, username):
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    check = None
+    if 'username' in session:
+        check = session['username']
+
+    return render_template('home.html', user_in_session=check)
 
 @app.route('/styles.css')
 def styles():
@@ -131,11 +135,17 @@ def home_page():
 
 @app.route('/skills')
 def skills():
-    return render_template('skills.html')
+    check = None
+    if 'username' in session:
+        check = session['username']
+    return render_template('skills.html', user_in_session=check)
 
 @app.route('/achievements')
 def achievements():
-    return render_template('achievements.html')
+    check = None
+    if 'username' in session:
+        check = session['username']
+    return render_template('achievements.html', user_in_session=check)
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
