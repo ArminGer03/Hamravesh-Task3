@@ -35,7 +35,7 @@ def check_password_format(password):
 
 @app.route('/')
 def home():
-    return render_template('main.html')
+    return render_template('home.html')
 
 @app.route('/styles.css')
 def styles():
@@ -94,6 +94,17 @@ def signup():
 
     return render_template('signup.html')
 
+@app.route('/home')
+def home_page():
+    return redirect(url_for('home'))
+
+@app.route('/skills')
+def skills():
+    return render_template('skills.html')
+
+@app.route('/achievements')
+def achievements():
+    return render_template('achievements.html')
 
 @app.route('/dashboard')
 def dashboard():
