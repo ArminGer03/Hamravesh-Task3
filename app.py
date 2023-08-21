@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = 'felan-alaki-yechizi-mizaram'
@@ -33,6 +34,30 @@ def check_password_format(password):
 
     return has_lowercase and has_uppercase and has_digit
 
+
+def hash_password(password):
+    # Create a SHA256 hash object
+    sha256_hash = hashlib.sha256()
+
+    # Convert the password string to bytes and hash it
+    sha256_hash.update(password.encode('utf-8'))
+
+    # Get the hashed password as a hexadecimal string
+    hashed_password = sha256_hash.hexdigest()
+
+    return hashed_password
+
+def check_password(password, username):
+    # Hash the entered password
+    entered_password_hash = hash_password(password)
+
+    user = User.query.filter_by(username=username).first()
+    hashed_password = user.password
+    # Compare the hashed passwords
+    return entered_password_hash == hashed_password
+    
+
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -56,7 +81,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
         if user != None:
-            if user.password == password:
+            if check_password(password, username):
                 session['username'] = username
                 return redirect(url_for('dashboard'))
             else:
@@ -73,6 +98,7 @@ def signup():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        confirmPassword = request.form['confirmPassword']
 
         user = User.query.filter_by(username=username).first()
         if user is None:
@@ -82,8 +108,12 @@ def signup():
             elif not check_password_format(password):
                 error = 'Invalid password format.'
                 return render_template('signup.html', error=error)
+            elif confirmPassword != password:
+                error = 'Password confirmation dont match.'
+                return render_template('signup.html', error=error)
             else:
-                new_user = User(username=username, password=password)
+                hashed_password = hash_password(password)
+                new_user = User(username=username, password=hashed_password)
                 db.session.add(new_user)
                 db.session.commit()
                 session['username'] = username
