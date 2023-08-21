@@ -1,9 +1,31 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="styles.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>Armin's Website</title>
 </head>
+
 <body>
+
+
+<header>
+
+    <div class="container">
+        
+        <img src="logo.png" alt="logo" class="logo">
+        <nav>
+            <li><a href="home">Home</a></li>
+            <li><a href="achievements">Achievements</a></li>
+            <li><a href="skills">Skills</a></li>
+            <li><a href="dashboard">Dashboard</a></li>
+        </nav>
+    </div>
+
+</header>
+
+<div class="fields">
     <h1>Login</h1>
     {%  if  error %}
  	<p> Error : {{error}}</p>
@@ -13,7 +35,30 @@
         <input type="text" id="username" name="username" required><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Login">
+        <input type="submit" value="Login"><br><br>
+        <a href="signup">Don't have an account? signup using this link!</a>
     </form>
+</div>
+
+
 </body>
+
+
+<footer>
+    <div class="containerF">
+
+            <navF>
+                <li><a href="https://t.me/rmingr" class="fa fa-telegram" style="font-size:30px"></a></li>
+                <li><a href="https://linkedin.com/in/armin-geramirad-646837233" class="fa fa-linkedin" style="font-size:30px"> </a></li>
+                <li><a href="https://github.com/ArminGer03" class="fa fa-github-square" style="font-size:30px"></a></li>
+            </navF>
+            <section id="textFoot">
+                <p>&copy;2022 Armin Geramirad | All Rights Reserved</p>
+            </section>
+            
+
+    </div>
+</footer>
+
+
 </html>

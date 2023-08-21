@@ -169,7 +169,7 @@ navF a:hover {
   text-align: center;
 }
 
-.randomField {
+.fields {
   display: flex;
   flex-direction: column;
   align-items: center;
